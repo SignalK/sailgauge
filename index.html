@@ -90,7 +90,13 @@ circle.perimeter {
 var sailgauge = new SailGauge();
 var dispatch = sailgauge.init('#sailgauge',800);
 var socket = io.connect('wss://localhost:3000/signalk/stream/delta');
-socket.on('signalk', dispatch);
+socket.on('signalk', function(_){
+  _.updates.forEach(function(update){
+    update.values.forEach(function(value) {
+      dispatch(value);     
+    });
+  });
+});
 socket.on('error', function() { console.error(arguments) });
 socket.on('message', function() { console.log(arguments) });
 

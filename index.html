@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>Sailgauge</title>
   <script src="dist/sailgauge.js"></script>
+  <script src="/signalk/stream/primus.js"></script>
 </head>
 <style>
 html, body { margin:0; padding:0; overflow:hidden }
@@ -89,16 +90,22 @@ circle.perimeter {
 
 var sailgauge = new SailGauge();
 var dispatch = sailgauge.init('#sailgauge',800);
-var socket = io.connect('wss://localhost:3000/signalk/stream/delta');
-socket.on('signalk', function(_){
+var signalKStream = Primus.connect("http://" + window.location.host + "/?stream=delta",
+      {reconnect: {
+        maxDelay: 15000,
+        minDelay: 500,
+        retries: Infinity
+      }});
+
+  signalKStream.on('data', function(_){
   _.updates.forEach(function(update){
     update.values.forEach(function(value) {
       dispatch(value);     
     });
   });
 });
-socket.on('error', function() { console.error(arguments) });
-socket.on('message', function() { console.log(arguments) });
+
+
 
 </script>
 </html>

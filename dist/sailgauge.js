@@ -157,28 +157,29 @@ SailGauge.prototype = {
     this.on('navigation.courseOverGroundTrue', this.updateCourse.bind(this));
     this.on('navigation.speedOverGround', this.updateSpeedOverGround.bind(this));
 
-    var sanitizedDepthStream = this.getTypeValueStream('environment.depth').filter(function(depth){return depth < 200;});
+    var sanitizedDepthStream = this.getTypeValueStream('environment.depth.belowTransducer').log()
+      .filter(function(depth){return depth < 200;});
     sanitizedDepthStream.onValue(this.updateDepthDisplay.bind(this));
     var doDrawSparkLine = this.drawSparkline.bind(this);
     sanitizedDepthStream.slidingTimeWindow(60 * 1000).onValue(function (data) {
       doDrawSparkLine("#depthSpark", data, 100, 50);
     });
 
-    this.on('environment.windSpeedApparent', this.updateApparentWindSpeed.bind(this));
-    this.on('environment.windAngleApparent', this.updateApparentWindAngle.bind(this));
+    this.on('environment.wind.speedApparent', this.updateApparentWindSpeed.bind(this));
+    this.on('environment.wind.angleApparent', this.updateApparentWindAngle.bind(this));
 
     navi.createTrueWindSpeedStream(
       this.getTypeValueStream('navigation.speedOverGround'),
-      this.getTypeValueStream('environment.windSpeedApparent'),
-      this.getTypeValueStream('environment.windAngleApparent'),
-      this.getTypeValueStream('environment.windSpeedTrue')
+      this.getTypeValueStream('environment.wind.speedApparent'),
+      this.getTypeValueStream('environment.wind.angleApparent'),
+      this.getTypeValueStream('environment.wind.speedTrue')
     ).onValue(this.updateTrueWindSpeed.bind(this));
 
     var trueWindAngleStream = navi.createTrueWindAngleStream(
       this.getTypeValueStream('navigation.speedOverGround'),
-      this.getTypeValueStream('environment.windSpeedApparent'),
-      this.getTypeValueStream('environment.windAngleApparent'),
-      this.getTypeValueStream('environment.windSpeedTrue')
+      this.getTypeValueStream('environment.wind.speedApparent'),
+      this.getTypeValueStream('environment.wind.angleApparent'),
+      this.getTypeValueStream('environment.wind.speedTrue')
     );
     trueWindAngleStream.onValue(this.updateTrueWindAngle.bind(this));
     var groundWindAngleStream = trueWindAngleStream.combine(

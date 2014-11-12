@@ -98,7 +98,8 @@ var signalKStream = Primus.connect("http://" + window.location.host + "/?stream=
       }});
 
   signalKStream.on('data', function(_){
-  _.updates.forEach(function(update){
+  _.updates.filter(function(update) {return update.context ==='vessels.self'})
+  .forEach(function(update){
     update.values.forEach(function(value) {
       dispatch(value);     
     });

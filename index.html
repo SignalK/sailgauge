@@ -90,20 +90,38 @@ circle.perimeter {
 
 var sailgauge = new SailGauge();
 var dispatch = sailgauge.init('#sailgauge',800);
-var signalKStream = Primus.connect("http://" + window.location.host + "/?stream=delta",
-      {reconnect: {
-        maxDelay: 15000,
-        minDelay: 500,
-        retries: Infinity
-      }});
+var theUrl = "ws://" + window.location.host + "/signalk/stream?stream=delta";
 
-  signalKStream.on('data', function(_){
-  _.updates.forEach(function(update){
+function handleDelta(delta){
+  delta.updates.forEach(function(update){
     update.values.forEach(function(value) {
       dispatch(value);     
     });
   });
-});
+}
+
+if (typeof Primus != 'undefined') {
+  var signalKStream = Primus.connect(theUrl,
+    {reconnect: {
+      maxDelay: 15000,
+      minDelay: 500,
+      retries: Infinity
+    }});
+
+  signalKStream.on('data', handleDelta);
+} else {
+  connection = new WebSocket(theUrl);
+  connection.onopen = function (msg) {
+    console.log("open:" + msg);
+  };
+
+  connection.onerror = function (error) {
+    console.log("error:" + msg);
+  };
+  connection.onmessage = function(msg) {
+    handleDelta(JSON.parse(msg.data));
+  };
+}  
 
 
 

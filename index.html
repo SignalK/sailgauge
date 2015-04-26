@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <title>Sailgauge</title>
   <script src="dist/sailgauge.js"></script>
-  <script src="/signalk/stream/primus.js"></script>
+  <script src="/signalk/stream/v1/primus.js"></script>
 </head>
 <style>
 html, body { margin:0; padding:0; overflow:hidden }
@@ -90,7 +90,7 @@ circle.perimeter {
 
 var sailgauge = new SailGauge();
 var dispatch = sailgauge.init('#sailgauge',800);
-var theUrl = "ws://" + window.location.host + "/signalk/stream?stream=delta";
+var theUrl = "ws://" + window.location.host + "/signalk/stream/v1?stream=delta";
 
 function handleDelta(delta){
   delta.updates.forEach(function(update){

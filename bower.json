@@ -1,6 +1,9 @@
 {
   "name": "sailgauge",
   "version": "0.0.0",
+  "keywords": [
+    "signalk-ui"
+  ],  
   "authors": [
     "Teppo Kurki"
   ],

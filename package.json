@@ -15,7 +15,7 @@
     "baconjs": "^0.7.25",
     "d3": "^3.4.13",
     "debug": "^2.1.0",
-    "ws": "^0.4.32"
+    "signalk-client": "SignalK/signalk-js-client#update-urls"    
   },
   "devDependencies": {
     "webpack": "^1.12.9"

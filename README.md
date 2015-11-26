@@ -28,13 +28,11 @@ Install the js dependencies with
 ```
 npm install
 ```
-and gulp with
-```
-npm install gulp
-```
 
 and then package the js code that is not part of the html page with 
 
 ```
-gulp
+npm run build
 ```
+
+Development time building with `npm run watch`.

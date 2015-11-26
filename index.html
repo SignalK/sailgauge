@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <title>Sailgauge</title>
   <script src="dist/sailgauge.js"></script>
-  <script src="/signalk/stream/v1/primus.js"></script>
+  <script src="/signalk/v1/stream/primus.js"></script>
 </head>
 <style>
 html, body { margin:0; padding:0; overflow:hidden }
@@ -92,38 +92,37 @@ var sailgauge = new SailGauge();
 var dispatch = sailgauge.init('#sailgauge',800);
 var theUrl = "ws://" + window.location.host + "/signalk/stream/v1?stream=delta";
 
-function handleDelta(delta){
-  delta.updates.forEach(function(update){
-    update.values.forEach(function(value) {
-      dispatch(value);     
-    });
-  });
+var selfMatcher = function() {
+  return true;
 }
 
-if (typeof Primus != 'undefined') {
-  var signalKStream = Primus.connect(theUrl,
-    {reconnect: {
-      maxDelay: 15000,
-      minDelay: 500,
-      retries: Infinity
-    }});
+function handleDelta(delta){
+  if (selfMatcher(delta) && delta.updates) {
+    delta.updates.forEach(function(update){
+      update.values.forEach(function(value) {
+        dispatch(value);
+      });
+    });
+  }
+}
 
-  signalKStream.on('data', handleDelta);
-} else {
-  connection = new WebSocket(theUrl);
-  connection.onopen = function (msg) {
-    console.log("open:" + msg);
-  };
+var signalk = new SignalK.Client();
+signalk.connectDelta(
+  window.location.host,
+  {
+    convertToHumanUnits: true
+  },
+  handleDelta,
+  onConnect,
+  console.log
+)
 
-  connection.onerror = function (error) {
-    console.log("error:" + msg);
-  };
-  connection.onmessage = function(msg) {
-    handleDelta(JSON.parse(msg.data));
-  };
-}  
-
-
+function onConnect() {
+  signalk.getSelfMatcher(window.location.host)
+  .then(function(matcher) {
+    selfMatcher = matcher;
+  });
+}
 
 </script>
 </html>

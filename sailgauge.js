@@ -5,4 +5,5 @@ SailGauge = require('./lib/sailgauge.js');
 require('./lib/baconslidingtimewindow.js');
 navi = require('./lib/naviutils.js');
 WebSocket = require('ws');
+SignalK = require('signalk-client');
 

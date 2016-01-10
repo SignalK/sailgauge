@@ -109,9 +109,6 @@ function handleDelta(delta){
 var signalk = new SignalK.Client();
 signalk.connectDelta(
   window.location.host,
-  {
-    convertToHumanUnits: true
-  },
   handleDelta,
   onConnect,
   console.log

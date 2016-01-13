@@ -16,7 +16,10 @@
     "baconjs": "^0.7.25",
     "d3": "^3.4.13",
     "debug": "^2.1.0",
-    "signalk-client": "SignalK/signalk-js-client"    
+    "json-loader": "^0.5.4",
+    "js-quantities": "^1.6.0",
+    "signalk-client": "SignalK/signalk-js-client",
+    "signalk-schema": "signalk/specification"
   },
   "devDependencies": {
     "webpack": "^1.12.9"

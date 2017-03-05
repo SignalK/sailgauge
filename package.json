@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "keywords": [
+    "signalk-webapp"
+  ],
+  "description": "Multipurpose full screen gauge for displaying sailing related Signal K data",  
   "repository": "https://github.com/SignalK/sailgauge",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

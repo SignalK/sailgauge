@@ -1,5 +1,5 @@
 {
-  "name": "sailgauge",
+  "name": "@signalk/sailgauge",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,7 +14,7 @@
     "build": "webpack -p --devtool source-map",
     "watch": "webpack -d --watch"
   },
-  "author": "",
+  "author": "Teppo Kurki <teppo.kurki@iki.fi>",
   "license": "ISC",
   "dependencies": {
     "baconjs": "^0.7.25",

@@ -1,23 +1,19 @@
-var webpack = require('webpack')
+const webpack = require("webpack");
+const path = require("path");
 
 module.exports = {
-  entry: {
-    sailgauge: './sailgauge.js'
-  },
+  entry: "./sailgauge.js",
   output: {
-    path: 'dist',
-    filename: '[name].js'
+    path: path.resolve(__dirname, "dist"),
+    filename: "sailgauge.js"
   },
   module: {
-    loaders: [
-      {test: /\.json$/, loader: 'json'}    
-    ]
+    loaders: []
   },
   resolve: {
     alias: {
       bacon: "baconjs"
     }
   },
-  plugins: [
-  ]
-}
+  externals: ["mdns", "validator-js", "ws"]
+};

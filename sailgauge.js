@@ -1,7 +1,4 @@
-Bacon = require('baconjs');
-d3 = require('d3');
-
-SailGauge = require('./lib/sailgauge.js');
-require('./lib/baconslidingtimewindow.js');
-navi = require('./lib/naviutils.js');
-SignalK = require('signalk-client');
+window.SailGauge = require("./lib/sailgauge.js");
+window.d3 = require("d3");
+window.navi = require('./lib/naviutils.js');
+window.SignalK = require('signalk-client');

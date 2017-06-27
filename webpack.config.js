@@ -1,14 +1,28 @@
 const webpack = require("webpack");
-const path = require("path");
+const resolve = require("path").resolve;
 
 module.exports = {
   entry: "./sailgauge.js",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: resolve(__dirname, "dist"),
     filename: "sailgauge.js"
   },
   module: {
-    loaders: []
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: {
+          test: resolve(__dirname, "node_modules"),
+          exclude: resolve(__dirname, "node_modules/signalk-schema") // or your module - also can be an array (read doc)
+        },
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["env"]
+          }
+        }
+      }
+    ]
   },
   resolve: {
     alias: {

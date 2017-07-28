@@ -1,6 +1,6 @@
 {
   "name": "@signalk/sailgauge",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Multipurpose full screen gauge for displaying sailing related Signal K data",
   "main": "index.js",
   "keywords": [

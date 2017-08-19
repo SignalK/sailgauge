@@ -16,6 +16,8 @@
   "author": "Teppo Kurki <teppo.kurki@iki.fi>",
   "license": "ISC",
   "devDependencies": {
+    "@signalk/client": "^0.1.0",
+    "@signalk/signalk-schema": "0.0.1-6",
     "babel-core": "^6.25.0",
     "babel-engine-plugin": "^0.1.2",
     "babel-loader": "^7.1.0",
@@ -25,8 +27,6 @@
     "debug": "^2.1.0",
     "js-quantities": "^1.6.0",
     "json-loader": "^0.5.4",
-    "signalk-client": "SignalK/signalk-js-client",
-    "signalk-schema": "signalk/specification",
     "webpack": "^3.0.0"
   }
 }
